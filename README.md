@@ -40,38 +40,6 @@ If you need Claude-specific instructions, add them below the import:
 ```markdown
 @AGENTS.md
 
-## Claude Code
-
-Use plan mode for changes under `src/billing/`.
-```
-
-A symlink (`ln -s AGENTS.md CLAUDE.md`) works too, if you'll never need that.
-Not on Windows without Developer Mode.
-
-## Writing rules that work
-
-Things worth knowing before you add to this, or to your own `AGENTS.md`:
-
-- **It's a token budget, not a wiki.** Every line is re-read on every turn of
-  every session. The test for inclusion isn't "is this a good principle" — it's
-  "does this change agent behavior, in a way worth paying for on every turn?"
-- **Target under 200 lines.** Longer files measurably reduce adherence. `core.md`
-  is 119; keep the project sections tight and you have room.
-- **Write rules that are checkable.** "Run `bun test` before claiming done"
-  beats "test your changes." "Use `bg-bg-container`, not `bg-gray-100`" beats
-  "use the design system."
-- **Rules the model already follows are pure cost.** "Write clean, maintainable
-  code" earns nothing. Rules earn their slot by correcting a *default* behavior.
-- **HTML comments are stripped before the file reaches the agent.** The `<!-- TODO -->`
-  markers in the template cost zero tokens — which also means an unfilled
-  section is silently empty rather than obviously broken. Fill them in.
-- **If it's mechanically checkable, make it a hook instead.** A `PreToolUse` hook
-  enforces a rule 100% of the time for zero tokens. `AGENTS.md` is guidance, not
-  enforcement.
-- **If it only applies to one kind of task, make it a skill.** Skills load on
-  demand. Release procedures, incident response, and migration walkthroughs
-  don't belong in a file that loads every session.
-
 ## Contributing
 
 Open a PR. One rule per PR, and the description must name **the agent failure it
